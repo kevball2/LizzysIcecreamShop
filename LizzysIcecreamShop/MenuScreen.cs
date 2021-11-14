@@ -1,6 +1,4 @@
-﻿using Spectre.Console;
-
-namespace LizzysIcecreamShop
+﻿namespace LizzysIcecreamShop
 {
     public class MenuScreen
     {
@@ -38,9 +36,9 @@ namespace LizzysIcecreamShop
                     .PageSize(10)
                     .MoreChoicesText("[grey](Move up and down to reveal more actions)[/]")
                     .AddChoices(new[] {
-                    "Hire Worker", "Hire Manager", "Hire Researcher",
-                    "Give employee raise", "Give employee new title", "Give employee new salary",
-                    "Remove employee", "Return to Main Menu"
+                    "Hire Employee", "Hire Manager", "Hire Researcher",
+                    "Give raise", "Give new title", "Give new salary",
+                    "Remove worker","Get worker details", "List all workers", "Return to Main Menu"
                     }));
 
             return option;
