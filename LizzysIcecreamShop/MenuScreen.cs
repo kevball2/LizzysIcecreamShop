@@ -37,8 +37,8 @@
                     .MoreChoicesText("[grey](Move up and down to reveal more actions)[/]")
                     .AddChoices(new[] {
                     "Hire Employee", "Hire Manager", "Hire Researcher",
-                    "Give raise", "Give new title", "Give new salary",
-                    "Remove worker","Get worker details", "List all workers", "Return to Main Menu"
+                    "Give worker raise", "Give new title", "Remove worker", 
+                    "Get worker details", "List all workers", "Return to Main Menu"
                     }));
 
             return option;

@@ -1,17 +1,17 @@
 ﻿namespace LizzysIcecreamShop.HR
 {
-    internal sealed class Manager: Worker
+    internal sealed class Researcher : Worker
     {
         private int bonus;
-        private const string employeeType = "Manager";
+        private const string employeeType = "Researcher";
         public int Bonus { get => bonus; set => bonus = value; }
 
-        public Manager(string first, string last, int emAge, DateOnly bday, double? rate, int emId, DateOnly emHireDate) : base(first, last, emAge, bday, rate, emId, employeeType, emHireDate)
+        public Researcher(string first, string last, int emAge, DateOnly bday, double? rate, int emId, DateOnly emHireDate) : base(first, last, emAge, bday, rate, emId, employeeType, emHireDate)
         { }
 
-        public Manager(string first, string last, int emAge, DateOnly bday, double? rate, int emId, DateOnly emHireDate, int emBonus) : base(first, last, emAge, bday, rate, emId, employeeType, emHireDate)
-        { 
-         Bonus = emBonus;
+        public Researcher(string first, string last, int emAge, DateOnly bday, double? rate, int emId, DateOnly emHireDate, int emBonus) : base(first, last, emAge, bday, rate, emId, employeeType, emHireDate)
+        {
+            Bonus = emBonus;
         }
 
         public override void DisplayEmployeeDetails()

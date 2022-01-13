@@ -13,19 +13,25 @@ do
             switch(option)
             {
                 case "Hire Employee":
-                    helper.HireEmployee(workers);
+                    //helper.HireEmployee(workers);
+                    helper.HireWorker(workers, "Employee");
                     break;
                 case "Hire Manager":
-                    helper.HireManager(workers);
+                    //helper.HireManager(workers);
+                    helper.HireWorker(workers, "Manager");
                     break;
                 case "Hire Researcher":
-                    helper.HireResearcher(workers);
+                    //helper.HireResearcher(workers);
+                    helper.HireWorker(workers, "Researcher");
                     break;
                 case "List all workers":
                     Worker.DisplayAllEmployeesDetails(workers);
                     break;
                 case "Get worker details":
                     Worker.DisplaySelectedEmployeeDetails(workers);
+                    break;
+                case "Give worker raise":
+                    Worker.GiveWorkerRaise(workers);
                     break;
 
 

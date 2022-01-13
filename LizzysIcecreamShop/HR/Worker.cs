@@ -6,7 +6,7 @@
         private string lastName;
         private int age;
         private DateOnly birthday;
-        private double? wage;
+        private double wage;
         private string employeeType;
         private int numberOfHoursWorked;
         private int employeeId;
@@ -30,7 +30,7 @@
         protected string LastName { get => lastName; set => lastName = value; }
         protected int Age { get => age; set => age = value; }
         protected DateOnly Birthday { get => birthday; set => birthday = value; }
-        protected double? Wage { get => wage; set => wage = value; }
+        protected double Wage { get => wage; set => wage = value; }
         public int NumberOfHoursWorked { get => numberOfHoursWorked; set => numberOfHoursWorked = value; }
         protected int EmployeeId { get => employeeId; set => employeeId = value; }
         protected DateOnly Hiredate { get => hiredate; set => hiredate = value; }
@@ -43,12 +43,65 @@
             AnsiConsole.WriteLine($"Employee: {FirstName} {LastName} has worked {numberOfHoursWorked} hours");
         }
 
+        public static void GiveWorkerRaise(List<Worker> employeeList)
+        {
+            List<string> choices = new();
+            foreach (Worker worker in employeeList)
+            {
+                choices.Add($"{worker.firstName} {worker.lastName} (Employee ID: {worker.EmployeeId})");
+            }
+            var selection = AnsiConsole.Prompt(new SelectionPrompt<string>()
+                         .Title("Select a worker please:")
+                         .AddChoices(choices));
+
+            var selectedEmployee = employeeList.Find(s => selection.Contains(s.employeeId.ToString()));
+           
+            var oldWage = selectedEmployee.Wage;
+
+
+            //var newWage = AnsiConsole.Ask<double>("Enter worker's new hourly rate: ");
+            //while (newWage < oldWage)
+            //{
+            //    AnsiConsole.WriteLine($"Workers new wage must be greater than their prvious wage! Please enter a new wage greater than {oldWage}");
+            //    newWage = AnsiConsole.Ask<double>($"Enter worker's new hourly rate: ");
+            //}
+            //selectedEmployee.wage = newWage;
+            var newWage = AnsiConsole.Prompt(
+               new TextPrompt<double>("Enter the workers new hourly wage: ")
+                   .Validate(newWage =>
+                   {
+                       ValidationResult isNewWageGreater = newWage < oldWage ? ValidationResult.Error($"[red]New wage must be great than old wage: {oldWage}[/]") : ValidationResult.Success();
+                       return isNewWageGreater;
+                   }));
+            AnsiConsole.WriteLine($"Employee: {selectedEmployee.firstName} {selectedEmployee.lastName}'s wage has been change from {oldWage} to {newWage}");
+            AnsiConsole.Write("\nPress any key to continue");
+            Console.ReadKey(true);
+           
+
+
+            //foreach (var worker in employeeList)
+            //{
+            //    var fullName = $"{worker.firstName} {worker.lastName} (Employee ID: {worker.EmployeeId})";
+            //    if (selection == fullName)
+            //    {
+            //        double oldWage = worker.wage;
+            //        worker.wage = newWage;
+            //        AnsiConsole.WriteLine($"Employee: {worker.firstName} {worker.lastName}'s wage has been change from {oldWage} to {newWage}");
+            //        AnsiConsole.Write("\nPress any key to continue");
+            //        Console.ReadKey(true);
+            //    }
+            //}
+
+
+
+        }
+
         public abstract void DisplayEmployeeDetails();
         //{
         //AnsiConsole.WriteLine($"\nFirst Name: {FirstName}\nLast Name: {LastName}\nEmployee Id: {EmployeeId}");
         //}
 
-        public static void DisplayAllEmployeesDetails(List<Worker> employeelist)
+        public static void DisplayAllEmployeesDetails(List<Worker> employeeList)
         {
             var table = new Table();
             table.Border(TableBorder.Rounded);
@@ -60,7 +113,7 @@
             table.AddColumn("Hourly Rate");
             table.AddColumn("Hire Date");
 
-            foreach (Worker worker in employeelist)
+            foreach (Worker worker in employeeList)
             {
                 //AnsiConsole.WriteLine($"\nFirst Name: {worker.FirstName}\nLast Name: {worker.LastName}\nEmployee Id: {worker.employeeId}" +
                 //                      $"\nEmployee Type: {worker.employeeType}");
@@ -95,7 +148,7 @@
             Console.ReadKey(true);
         }
 
-        public static bool IsValidBirthday(string bday)
+        public static bool IsValidDate(string bday)
         {
             // Check string format
             string pattern = @"^(0[1-9]|1[012])[-\/.](0[1-9]|[12][0-9]|3[01])[-\/.](19|20)\d\d$";
