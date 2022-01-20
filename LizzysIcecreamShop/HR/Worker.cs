@@ -1,12 +1,12 @@
 ﻿namespace LizzysIcecreamShop.HR
 {
-    public abstract class Worker
+    public abstract class Worker: IWorker
     {
         private string firstName;
         private string lastName;
         private int age;
         private DateOnly birthday;
-        private double wage;
+        private double? wage;
         private string employeeType;
         private int numberOfHoursWorked;
         private int employeeId;
@@ -26,16 +26,16 @@
             hiredate = emHireDate;
         }
 
-        protected string FirstName { get => firstName; set => firstName = value; }
-        protected string LastName { get => lastName; set => lastName = value; }
-        protected int Age { get => age; set => age = value; }
-        protected DateOnly Birthday { get => birthday; set => birthday = value; }
-        protected double Wage { get => wage; set => wage = value; }
+        public string FirstName { get => firstName; set => firstName = value; }
+        public string LastName { get => lastName; set => lastName = value; }
+        public int Age { get => age; set => age = value; }
+        public DateOnly Birthday { get => birthday; set => birthday = value; }
+        public double? Wage { get => wage; set => wage = value; }
         public int NumberOfHoursWorked { get => numberOfHoursWorked; set => numberOfHoursWorked = value; }
-        protected int EmployeeId { get => employeeId; set => employeeId = value; }
-        protected DateOnly Hiredate { get => hiredate; set => hiredate = value; }
-        protected DateOnly? Terminationdate { get => terminationdate; set => terminationdate = value; }
-        protected string EmployeeType { get => employeeType; set => employeeType = value; }
+        public int EmployeeId { get => employeeId; set => employeeId = value; }
+        public DateOnly Hiredate { get => hiredate; set => hiredate = value; }
+        public DateOnly? Terminationdate { get => terminationdate; set => terminationdate = value; }
+        public string EmployeeType { get => employeeType; set => employeeType = value; }
 
         public void PerformWork()
         {
@@ -43,18 +43,18 @@
             AnsiConsole.WriteLine($"Employee: {FirstName} {LastName} has worked {numberOfHoursWorked} hours");
         }
 
-        public static void GiveWorkerRaise(List<Worker> employeeList)
+        public static void GiveWorkerRaise(List<IWorker> employeeList)
         {
             List<string> choices = new();
-            foreach (Worker worker in employeeList)
+            foreach (IWorker worker in employeeList)
             {
-                choices.Add($"{worker.firstName} {worker.lastName} (Employee ID: {worker.EmployeeId})");
+                choices.Add($"{worker.FirstName} {worker.LastName} (Employee ID: {worker.EmployeeId})");
             }
             var selection = AnsiConsole.Prompt(new SelectionPrompt<string>()
                          .Title("Select a worker please:")
                          .AddChoices(choices));
 
-            var selectedEmployee = employeeList.Find(s => selection.Contains(s.employeeId.ToString()));
+            var selectedEmployee = employeeList.Find(s => selection.Contains(s.EmployeeId.ToString()));
            
             var oldWage = selectedEmployee.Wage;
 
@@ -73,7 +73,7 @@
                        ValidationResult isNewWageGreater = newWage < oldWage ? ValidationResult.Error($"[red]New wage must be great than old wage: {oldWage}[/]") : ValidationResult.Success();
                        return isNewWageGreater;
                    }));
-            AnsiConsole.WriteLine($"Employee: {selectedEmployee.firstName} {selectedEmployee.lastName}'s wage has been change from {oldWage} to {newWage}");
+            AnsiConsole.WriteLine($"Employee: {selectedEmployee.FirstName} {selectedEmployee.LastName}'s wage has been change from {oldWage} to {newWage}");
             AnsiConsole.Write("\nPress any key to continue");
             Console.ReadKey(true);
            
@@ -101,7 +101,7 @@
         //AnsiConsole.WriteLine($"\nFirst Name: {FirstName}\nLast Name: {LastName}\nEmployee Id: {EmployeeId}");
         //}
 
-        public static void DisplayAllEmployeesDetails(List<Worker> employeeList)
+        public static void DisplayAllEmployeesDetails(List<IWorker> employeeList)
         {
             var table = new Table();
             table.Border(TableBorder.Rounded);
@@ -125,12 +125,12 @@
             Console.ReadKey(true);
         }
 
-        public static void DisplaySelectedEmployeeDetails(List<Worker> employeelist)
+        public static void DisplaySelectedEmployeeDetails(List<IWorker> employeelist)
         {
             List<string> choices = new();
-            foreach (Worker worker in employeelist)
+            foreach (IWorker worker in employeelist)
             {
-                choices.Add($"{worker.firstName} {worker.lastName} (Employee ID: {worker.EmployeeId})");
+                choices.Add($"{worker.FirstName} {worker.LastName} (Employee ID: {worker.EmployeeId})");
             }
             var selection = AnsiConsole.Prompt( new SelectionPrompt<string>()
                          .Title("Select a worker please:")
@@ -138,7 +138,7 @@
 
             foreach (var worker in employeelist)
             {
-                var fullName = $"{worker.firstName} {worker.lastName} (Employee ID: {worker.EmployeeId})";
+                var fullName = $"{worker.FirstName} {worker.LastName} (Employee ID: {worker.EmployeeId})";
                 if (selection == fullName){
 
                     worker.DisplayEmployeeDetails();
@@ -173,7 +173,7 @@
             // Try and parse string to int, if that fails then return false
             if (age < 15)
             {
-                return true;
+                return false;
             }
             else if (age > 15)
             {
