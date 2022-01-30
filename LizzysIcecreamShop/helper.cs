@@ -3,7 +3,7 @@ namespace LizzysIcecreamShop
 {
     public class helper
     {
-        public static void HireWorker(List<Worker> workerList, string jobRole)
+        public static void HireWorker(List<IWorker> workerList, string jobRole)
         {
             if (workerList is null)
             {
@@ -60,10 +60,12 @@ namespace LizzysIcecreamShop
             
             int indexId = emId - 1;
             workerList[index: indexId].DisplayEmployeeDetails();
-            AnsiConsole.Ask<string>($"New {jobRole} sucessfully added!");
+            AnsiConsole.Write($"New {jobRole} sucessfully added!");
+            Console.ReadKey(true);
+            //AnsiConsole.Ask<string>($"New {jobRole} sucessfully added!");
 
         }
-        public static void HireEmployee(List<Worker> workerList)
+        public static void HireEmployee(List<IWorker> workerList)
         {
             if (workerList is null)
             {

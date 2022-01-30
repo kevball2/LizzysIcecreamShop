@@ -1,6 +1,6 @@
 ﻿bool stop = true;
 string option = MenuScreen.WelcomeScreen();
-List<Worker> workers = new();
+List<IWorker> workers = new();
 
 
 do 
