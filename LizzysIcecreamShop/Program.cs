@@ -33,6 +33,9 @@ do
                 case "Give worker raise":
                     Worker.GiveWorkerRaise(workers);
                     break;
+                case "Give worker new title":
+                    Manager.UpdateWorkerTitle(workers);
+                    break;
 
 
                 default:

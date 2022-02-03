@@ -46,7 +46,7 @@ namespace LizzysIcecreamShop
             switch (jobRole)
             {
                 case "Employee":
-                    workerList.Add(new Employee(first, last, emAge, bday, rate, emId: emId, hiredate));
+                    workerList.Add(new Employee(first, last, emAge, bday, rate, emId: emId, hiredate, jobRole));
                     break;
                 case "Manager":
                     workerList.Add(new Manager(first, last, emAge, bday, rate, emId: emId, hiredate));

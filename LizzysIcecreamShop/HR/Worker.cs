@@ -73,6 +73,7 @@
                        ValidationResult isNewWageGreater = newWage < oldWage ? ValidationResult.Error($"[red]New wage must be great than old wage: {oldWage}[/]") : ValidationResult.Success();
                        return isNewWageGreater;
                    }));
+            selectedEmployee.Wage = newWage;
             AnsiConsole.WriteLine($"Employee: {selectedEmployee.FirstName} {selectedEmployee.LastName}'s wage has been change from {oldWage} to {newWage}");
             AnsiConsole.Write("\nPress any key to continue");
             Console.ReadKey(true);

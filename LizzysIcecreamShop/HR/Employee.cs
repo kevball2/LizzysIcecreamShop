@@ -17,16 +17,46 @@ namespace LizzysIcecreamShop.HR
         private DateOnly? terminationdate;
 
 
-        public Employee(string first, string last, int emAge, DateOnly bday, double? rate, int emId, DateOnly emHireDate) 
+        public Employee(string first, string last, int emAge, DateOnly bday, double? rate, int emId, DateOnly emHireDate, string employeetype) 
         {
-            firstName = first;
-            lastName = last;
-            age = emAge;
-            birthday = bday;
-            wage = rate ?? 10;
-            employeeId = emId;
-            hiredate = emHireDate;
+            //firstName = first;
+            //lastName = last;
+            //age = emAge;
+            //birthday = bday;
+            //wage = rate ?? 10;
+            //employeeId = emId;
+            //hiredate = emHireDate;
+            //employeeType = employeetype;
+            FirstName = first;
+            LastName = last;
+            Age = emAge;
+            Birthday = bday;
+            Wage = rate ?? 10;
+            EmployeeId = emId;
+            Hiredate = emHireDate;
+            EmployeeType = employeetype;
         }
+
+        public Employee(string first, string last, int emAge, DateOnly bday, double? rate, int emId, DateOnly emHireDate)
+        {
+            //firstName = first;
+            //lastName = last;
+            //age = emAge;
+            //birthday = bday;
+            //wage = rate ?? 10;
+            //employeeId = emId;
+            //hiredate = emHireDate;
+            //employeeType = employeetype;
+            FirstName = first;
+            LastName = last;
+            Age = emAge;
+            Birthday = bday;
+            Wage = rate ?? 10;
+            EmployeeId = emId;
+            Hiredate = emHireDate;
+            EmployeeType = "Employee";
+        }
+
 
         public string FirstName { get => firstName; set => firstName = value; }
         public string LastName { get => lastName ; set => lastName = value; }
@@ -37,7 +67,7 @@ namespace LizzysIcecreamShop.HR
         public int EmployeeId { get => employeeId ; set => employeeId = value; }
         public DateOnly Hiredate { get => hiredate ; set => hiredate = value; }
         public DateOnly? Terminationdate { get => terminationdate ; set => terminationdate = value ; }
-        public string EmployeeType { get => employeeType; set => employeeType = "Employee"; }
+        public string EmployeeType { get => employeeType; set => employeeType = value; }
 
         
         public void DisplayEmployeeDetails()
